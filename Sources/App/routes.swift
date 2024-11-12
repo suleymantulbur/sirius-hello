@@ -1,11 +1,7 @@
 import Vapor
 
 func routes(_ app: Application) throws {
-    app.get { req async in
-        "It works!"
-    }
+    let moviesController = MoviesController(app: app, appDirectory: app.directory.publicDirectory,firestoreService: .init(databaseURL: "https://firestore.googleapis.com/v1/projects/tracking-5a183/databases/(default)/documents/"))
 
-    app.get("hello") { req async -> String in
-        "Hello, world!"
-    }
+    try app.register(collection: moviesController)
 }
